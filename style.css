@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+:root {
+  --primary-color: #5c88ee;
+  --background-color: #bacfff;
+  --text-color: #333;
+  --text-field-color: rgba(234, 240, 240, 0.28);
+  --card-color: #eaf0f0;
+  --gray-text-color: #919191;
+}
+
+.app {
+  height: 100vh;
+  width: 100%;
+  background: var(--background-color);
+}
+.logo {
+    background-color: #5c88ee;
+}
+.logo img{
+    width: clamp(6rem,3vw,7rem);
+    height: clamp(5rem,3vh,5rem);
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: .3rem;
+}
+
+.left-side {
+  width: 40%;
+  background-color: rebeccapurple;
+  padding: 1.3rem;
+}
+
+.right-side {
+  width: 60%;
+  background-color: red;
+  padding: 1.3rem;
+}
