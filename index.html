@@ -1,34 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HealthCare-Inscription</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="app">
-      <!--Nav section-->
-      <header>
-        <div class="logo">
-          <img src="images/logo.png" alt="" />
-        </div>
-      </header>
+        <!--Nav section-->
+        <header>
+            <div class="logo">
+                <img src="images/logo.png" alt="" />
+            </div>
+        </header>
 
-      <section class="content">
+        <section class="content">
+            <!--Patients form section-->
+            <section class="left-side">
+                <h3 class="left-side__title">Pre-inscription</h3>
+                <section class="left-side__patient-form">
+                    <form id="form">
+                        <div class="fields">
+                            <input type="text" name="name" id="name" placeholder=" Nom" />
+                            <input type="text" name="last-name" id="last-name" placeholder=" Prénom" />
+                            <input type="text" name="tel" id="tel" placeholder=" Téléphone" />
+                            <input type="text" name="email" id="email" placeholder=" Email" />
+                            <input type="text" name="motif" id="motif" placeholder=" Motif" />
+                            <input type="date" name="prefered-date" id="prefered-date" placeholder=" Date souhaitée" />
+                        </div>
+                        <button id="envoi-btn" type="submit">Envoyez</button>
+                    </form>
+                </section>
+            </section>
 
-        <!--Patients form section-->
-        <section class="left-side">left-side</section>
+            <!-- Registration patients section-->
+            <section class="right-side">
+                <h3 class="right-side__title">Les demandes</h3>
+                <header class="right-side__header">
+                    <h5>Nom</h5>
+                    <h5>Prénom</h5>
+                    <h5>Téléphone</h5>
+                    <h5>Email</h5>
+                    <h5>Motif</h5>
+                    <h5>Date souhaitée</h5>
+                </header>
+                <div class="data">
+                    <div class="row" draggable="true">
+                        <section class="patient-data">
+                            <p class="name">Karim</p>
+                            <p class="last-name">Hasnaoui</p>
+                            <p class="tel">0967766535</p>
+                            <p class="email">karim@gmail.com</p>
+                            <p class="motif">man3raf</p>
+                            <p class="date">1/3/2021</p>
+                        </section>
+                        <!-- <div class="deleted-image">
+                            <img src="images/delete.png" alt="">
+                        </div> -->
+                    </div>
+                </div>
+                <section class="pages-pagination-controller">
+                    <div class="pervious-page-controller">
+                        <img src="images/back.png" alt="">
+                    </div>
 
-        <!--Patients section-->
-        <section class="right-side">right-side</section>
+                    <div class="next-page-controller">
+                        <img src="images/next.png" alt="">
+                    </div>
+                </section>
+            </section>
+        </section>
 
-      </section>
+        <!--Message popup section-->
+        <section class="message-popup hide">
 
-      <!--Message popup section-->
-      <section class="message-popup"></section>
+            <div class="warning">
+                <img class="success-img" src="images/warning.png" alt="" />
+                <h3>Error accurs</h3>
+                <div class="message"></div>
+            </div>
+
+        </section>
     </div>
 
     <script src="app.js" type="module"></script>
-  </body>
+</body>
+
 </html>
