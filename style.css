@@ -1,259 +1,274 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-    background: var(--background-color);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background: var(--background-color);
 }
 
 :root {
-    --primary-color: #5c88ee;
-    --background-color: #bacfff;
-    --text-color: #333;
-    --text-field-color: rgba(234, 240, 240, 0.28);
-    --card-color: #eaf0f0;
-    --gray-text-color: #919191;
-    --border-text-field-color: #004dff;
+  --primary-color: #5c88ee;
+  --background-color: #bacfff;
+  --text-color: #333;
+  --text-field-color: rgba(234, 240, 240, 0.28);
+  --card-color: #eaf0f0;
+  --gray-text-color: #919191;
+  --border-text-field-color: #004dff;
 }
 
 .app {
-    width: 100%;
-    position: relative;
+  width: 100%;
+  position: relative;
 }
 
-.logo {}
+.logo {
+}
 
 .logo img {
-    width: clamp(6rem, 3vw, 7rem);
-    height: clamp(5rem, 3vh, 5rem);
+  width: clamp(6rem, 3vw, 7rem);
+  height: clamp(5rem, 3vh, 5rem);
 }
 
 .content {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 0.3rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 0.3rem;
 }
-
 
 /* Patient form section */
 
 .left-side {
-    width: 40%;
-    padding: 2rem;
+  width: 40%;
+  padding: 2rem;
 }
 
 .left-side__title {
-    font-size: (1rem, 2vw, 2rem);
+  font-size: (1rem, 2vw, 2rem);
 }
-
 
 /*form*/
 
 .fields {
-    display: grid;
-    gap: 0.6rem;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
-    align-content: center;
-    padding: 1.5rem;
-    width: 100%;
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-content: center;
+  padding: 1.5rem;
+  width: 100%;
 }
 
-.fields>input {
-    all: unset;
-    border: 1px solid var(--border-text-field-color);
-    height: 3rem;
-    border-radius: 1rem;
-    color: white;
-    padding: 5px;
+.fields > input {
+  all: unset;
+  border: 1px solid var(--border-text-field-color);
+  height: 3rem;
+  border-radius: 1rem;
+  color: white;
+  padding: 5px;
 }
 
 #envoi-btn {
-    all: unset;
-    text-align: center;
-    background-color: white;
-    width: 50%;
-    padding: 10px;
-    margin-left: 25%;
-    border-radius: 10px;
+  all: unset;
+  text-align: center;
+  background-color: white;
+  width: 50%;
+  padding: 10px;
+  margin-left: 25%;
+  border-radius: 10px;
 }
-
 
 /*  Registred patients section  */
 
 .right-side {
-    width: 60%;
-    padding: 2rem;
-    height: 100vh;
+  width: 60%;
+  padding: 2rem;
+  height: 100vh;
 }
 
 .right-side__title {
-    font-size: (1rem, 2vw, 2rem);
+  font-size: (1rem, 2vw, 2rem);
 }
 
 .right-side__header {
-    display: flex;
-    flex-grow: 1;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.right-side__header>h5 {
-    color: var(--gray-text-color);
-    width: 10%;
-    font-size: 0.9rem;
+.right-side__header > h5 {
+  color: var(--gray-text-color);
+  width: 10%;
+  font-size: 0.9rem;
 }
 
 .patient-data {
-    padding: 2px 2px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #eaf0f0;
-    height: 3.5rem;
+  padding: 2px 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #eaf0f0;
+  height: 3.5rem;
 }
 
 .row {
-    margin-bottom: 1.5rem;
-    box-shadow: -5px 5px 17px 0px var(--primary-color), 0px 1px 5px var(--primary-color);
-    border-radius: 10px;
-    position: relative;
-    left: 0;
-    transition: all 0.2s linear;
+  margin-bottom: 1.5rem;
+  box-shadow: -5px 5px 17px 0px var(--primary-color),
+    0px 1px 5px var(--primary-color);
+  border-radius: 10px;
+  position: relative;
+  left: 0;
+  transition: all 0.2s linear;
 }
 
 .deleted-image img {
-    width: 4rem;
-    height: 3rem;
+  width: 4rem;
+  height: 3rem;
 }
 
 .deleted-image {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
 }
 
-.deleted-image.show {}
-
-.deleted-image.hide {}
-
-.patient-data>p {
-    width: 10%;
-    overflow-wrap: break-word;
-    font-size: 0.7rem;
+.deleted-image.show {
 }
 
+.deleted-image.hide {
+}
+
+.patient-data > p {
+  width: 10%;
+  overflow-wrap: break-word;
+  font-size: 0.7rem;
+}
 
 /* Message pop-up Section*/
 
 .message-popup {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    background-color: var(--primary-color);
-    width: 30%;
-    height: 30%;
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: 5px 5px 5px var(--text-field-color), -5px -5px 5px var(--text-field-color);
-    transform: translate(-50%, -50%);
-    transition: all 1s ease-in-out;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background-color: var(--primary-color);
+  width: 30%;
+  height: 30%;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 5px 5px 5px var(--text-field-color),
+    -5px -5px 5px var(--text-field-color);
+  transform: translate(-50%, -50%);
+  transition: all 1s ease-in-out;
 }
-
 
 /* Show & hide the popup using JS-DOM, if is it an error i'll set 'show' class otherwise 'hide' class*/
 
 .message-popup.show {
-    display: block;
+  display: block;
 }
 
 .message-popup.hide {
-    display: none;
+  display: none;
 }
 
 .warning {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .warning h3 {
-    color: red
+  color: red;
 }
 
 .warning img {
-    width: 4rem;
-    height: 4rem;
+  width: 4rem;
+  height: 4rem;
 }
-
 
 /*Pagination section*/
 
 .pages-pagination-controller {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10%;
-    margin-top: 2rem;
-    transition: all 3s linear;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  margin-top: 2rem;
+  transition: all 3s linear;
 }
 
 .pages-pagination-controller.show {
-    display: flex;
+  display: flex;
 }
 
 .pages-pagination-controller.hide {
-    display: none;
+  display: none;
 }
 
 .pervious-page-controller img,
 .next-page-controller img {
-    width: 2rem;
-    height: 2rem;
-    box-shadow: -5px 5px 17px 0px var(--primary-color), 0px 1px 5px var(--primary-color);
-    cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  box-shadow: -5px 5px 17px 0px var(--primary-color),
+    0px 1px 5px var(--primary-color);
+  cursor: pointer;
 }
 
 .pervious-page-controller,
 .next-page-controller {
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 3rem;
-    width: 3rem;
-    cursor: pointer;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 3rem;
+  cursor: pointer;
+}
+.data {
+  width: 100%;
 }
 
-
+.notfound {
+  display: flex;
+  margin: 1rem auto;
+  width: 50%;
+}
+/*Show & Hide not found content*/
+.notfound.hide {
+  display: none;
+}
+.notfound.show {
+  display: block;
+}
 /* Media query */
 
 @media (max-width: 700px) {
-    .content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .left-side {
-        width: 100%;
-    }
-    .fields {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-    .right-side {
-        width: 100%;
-        height: 100vh;
-    }
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .left-side {
+    width: 100%;
+  }
+  .fields {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .right-side {
+    width: 100%;
+    height: 100vh;
+  }
 }

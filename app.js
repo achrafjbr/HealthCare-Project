@@ -2,6 +2,9 @@
 const lenghtPaginationPage = 5;
 let currentPage = 1; // pagination start
 let patientList = []; // list that contains all patients.
+let currentPagePointer = 4;
+let previousPagePointer = 0;
+let totalPages = Math.ceil(patientList.length / lenghtPaginationPage);
 
 /* Patient form section (left side part in HTML) */
 
@@ -121,13 +124,17 @@ const onDragStarting = (event) => {
 // I'll develop it later.
 const reRenderPatientData = () => {
   checkHowManyItemExist();
+  currentPage = 1;
+  previousPagePointer = 0;
+  currentPagePointer = 4;
+  nextPageController;
   patientData.innerHTML = "";
   patientList.forEach(
     ({ id, name, telephone, lastName, email, motif, date }, indx) => {
       const insidePatientDataElement = `<div class="row" draggable="true" data-id=${id}>
                         <section class="patient-data">
                             <p class="name">${name}</p>
-                            <p class="last-name">${lastName}">Hasnaoui</p>
+                            <p class="last-name">${lastName}</p>
                             <p class="tel">${telephone}</p>
                             <p class="email">${email}</p>
                             <p class="motif">${motif}</p>
@@ -155,7 +162,7 @@ const renderingPatientView = ({
   const insidePatientDataElement = `<div class="row" draggable="true" data-id=${id}>
                         <section class="patient-data">
                             <p class="name">${name}</p>
-                            <p class="last-name">${lastName}">Hasnaoui</p>
+                            <p class="last-name">${lastName}"</p>
                             <p class="tel">${telephone}</p>
                             <p class="email">${email}</p>
                             <p class="motif">${motif}</p>
@@ -184,7 +191,19 @@ const checkHowManyItemExist = () => {
     pagesPaginationController.classList.add("show");
   }
 };
-onload = () => checkHowManyItemExist();
+// not content found.
+let notFoundContent = patientData.querySelector(":nth-child(1)");
+const showAndHideNOContentFound = () => {
+  if (patientList.length == 0) {
+    notFoundContent.classList.add("show");
+  } else {
+    notFoundContent.classList.add("hide");
+  }
+};
+onload = () => {
+    showAndHideNOContentFound();
+  checkHowManyItemExist();
+};
 
 perviouPageController.addEventListener("click", (event) =>
   previousPaginationController()
@@ -193,35 +212,33 @@ nextPageController.addEventListener("click", (event) =>
   nextPaginationController()
 );
 
-let currentPagePointer = 5;
-let previousPagePointer = 0;
-
-// [ item1, item2, item3, item4, item5, item6, item7, ]
 
 const previousPaginationController = () => {
-  if (currentPagePointer > lenghtPaginationPage) {
-    currentPagePointer = currentPagePointer - previousPagePointer + 2;
-    previousPagePointer = previousPagePointer / 2;
-    for (let i = previousPagePointer; i < currentPagePointer; i++) {
-      renderingPatientView(patientList[previousPagePointer]);
+  patientData.innerHTML = "";
+  if (p != 0) {
+    currentPage--;
+    previousPagePointer = currentPagePointer;
+    p -= 5;
+    for (let i = currentPagePointer; i >= previousPagePointer; i--) {
+      renderingPatientView(patientList[i]);
     }
   }
-  /*
-    -Followed rule:
-       currentPagePointer=7 | previousPagePointer = 5
-       7-5= 2 | 7-5 + 2 = 4
-       previousPagePointer/2=0
-    */
 };
 const nextPaginationController = () => {
-  if (patientList.length > lenghtPaginationPage) {
-    for (let i = previousPagePointer; i < currentPagePointer; i++) {
-      renderingPatientView(patientList[previousPagePointer]);
-    }
+  patientData.innerHTML = "";
+
+  if (currentPage === totalPages) {
+    totalPages++;
     previousPagePointer = currentPagePointer;
-    currentPagePointer += 5;
-    if (currentPagePointer > patientList.length) {
-      currentPagePointer = patientList.length;
+    currentPagePointer = patientList.length;
+    for (let i = previousPagePointer; i < currentPagePointer; i++) {
+      renderingPatientView(patientList[i]);
+    }
+  } else {
+    previousPagePointer = currentPagePointer;
+    currentPagePointer += 4;
+    for (let i = previousPagePointer; i < currentPagePointer; i++) {
+      renderingPatientView(patientList[i]);
     }
   }
 };
