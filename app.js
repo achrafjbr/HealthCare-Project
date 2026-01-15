@@ -70,7 +70,7 @@ const onSubmit = (event, callback) => {
       date: preferedDateInput.value,
     });
     // Set success image:
-    successMessage.style.src = "imagesdelete.png";
+    successMessage.src = "images/success.png";
     // show popup for success message in 1second and close it auto.
     message.innerText = `Registration has been successfully`;
     // Change the header message color :
