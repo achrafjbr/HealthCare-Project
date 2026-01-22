@@ -1,10 +1,14 @@
 /* General variables*/
-const lenghtPaginationPage = 5;
+const lenghtPaginationPage = 4;
 let currentPage = 1; // pagination start
 let patientList = []; // list that contains all patients.
-let currentPagePointer = 4;
-let previousPagePointer = 0;
-let totalPages = Math.ceil(patientList.length / lenghtPaginationPage);
+//let currentPagePointer = 4;
+//let previousPagePointer = 0;
+let previousPointer = 0;
+let nextPointer = 4;
+let isPaginationClicked = false;
+
+let totalPages = patientList.length;
 
 /* Patient form section (left side part in HTML) */
 
@@ -23,7 +27,7 @@ const successMessage = popupMessage.querySelector(".warning .success-img");
 const messageHeaderColor = popupMessage.querySelector(".warning h3");
 /// Submit form element.
 submitFormButton.addEventListener("submit", (event) =>
-  onSubmit(event, validate)
+  onSubmit(event, validate),
 );
 
 const addPatient = (patient) => {
@@ -40,6 +44,8 @@ const validate = (error) => {
   // show popup for error message in 2second and close it auto.
   popupMessage.classList.remove("hide");
   popupMessage.classList.add("show");
+  // Set error image:
+  successMessage.src = "images/warning.png";
   showPopupTimeOut(2000, () => {
     popupMessage.classList.remove("show");
     popupMessage.classList.add("hide");
@@ -88,7 +94,7 @@ const onSubmit = (event, callback) => {
     // re-render the patient data in the right side.
     // Re-render the data again
     reRenderPatientData();
-    checkHowManyItemExist();
+    //checkHowManyItemExist();
     // Change the parameters of pagination.
     console.log("THE LIST", patientList);
   }
@@ -124,14 +130,11 @@ const onDragStarting = (event) => {
 // I'll develop it later.
 const reRenderPatientData = () => {
   checkHowManyItemExist();
-  currentPage = 1;
-  previousPagePointer = 0;
-  currentPagePointer = 4;
-  nextPageController;
   patientData.innerHTML = "";
   patientList.forEach(
     ({ id, name, telephone, lastName, email, motif, date }, indx) => {
-      const insidePatientDataElement = `<div class="row" draggable="true" data-id=${id}>
+      if (indx < 4) {
+        patientData.innerHTML += `<div class="row" draggable="true" data-id=${id}>
                         <section class="patient-data">
                             <p class="name">${name}</p>
                             <p class="last-name">${lastName}</p>
@@ -141,15 +144,13 @@ const reRenderPatientData = () => {
                             <p class="date">${date}</p>
                         </section>
                     </div>`;
-
-      if (indx > 4) {
-        return;
-      } else {
-        patientData.innerHTML += insidePatientDataElement;
       }
-    }
+    },
   );
 };
+
+/*
+
 const renderingPatientView = ({
   id,
   name,
@@ -171,9 +172,13 @@ const renderingPatientView = ({
                     </div>`;
   patientData.innerHTML += insidePatientDataElement;
 };
+
+*/
+
 const pagesPaginationController = document.querySelector(
-  ".pages-pagination-controller"
+  ".pages-pagination-controller",
 );
+
 const perviouPageController =
   pagesPaginationController.querySelector(":nth-child(1)");
 const nextPageController =
@@ -181,16 +186,17 @@ const nextPageController =
 
 // Hiding the pagination icons if the [patientList] empty.
 const checkHowManyItemExist = () => {
-  if (patientList.length <= lenghtPaginationPage) {
+  if (lenghtPaginationPage >= patientList.length) {
     pagesPaginationController.classList.contains("show") &&
       pagesPaginationController.classList.remove("show");
     pagesPaginationController.classList.add("hide");
-  } else {
+  } else if (patientList.length > lenghtPaginationPage) {
     pagesPaginationController.classList.contains("hide") &&
       pagesPaginationController.classList.remove("hide");
     pagesPaginationController.classList.add("show");
   }
 };
+
 // not content found.
 let notFoundContent = patientData.querySelector(":nth-child(1)");
 const showAndHideNOContentFound = () => {
@@ -200,20 +206,25 @@ const showAndHideNOContentFound = () => {
     notFoundContent.classList.add("hide");
   }
 };
+
 onload = () => {
-    showAndHideNOContentFound();
+  showAndHideNOContentFound();
   checkHowManyItemExist();
 };
 
 perviouPageController.addEventListener("click", (event) =>
-  previousPaginationController()
+  //previousPaginationController()
+  previousPart(),
 );
+
 nextPageController.addEventListener("click", (event) =>
-  nextPaginationController()
+  //nextPaginationController()
+  nextPart(),
 );
 
+/*
 
-const previousPaginationController = () => {
+  const previousPaginationController = () => {
   patientData.innerHTML = "";
   if (p != 0) {
     currentPage--;
@@ -251,5 +262,54 @@ const paginationReRendring = () => {
   currentPagePointer += 5;
   if (currentPagePointer > patientList.length) {
     currentPagePointer = patientList.length;
+  }
+};
+
+*/
+
+const previousPart = () => {
+  if (previousPointer > 0) {
+    console.log("previous", previousPointer);
+    nextPointer = previousPointer;
+    previousPointer -= 4;
+    giveTargetedPart(previousPointer, nextPointer);
+    console.log(
+      `Previous func: next-> ${nextPointer} prev->${previousPointer}`,
+    );
+  }
+};
+
+const nextPart = () => {
+  if (nextPointer >= patientList.length) return;
+
+  previousPointer = nextPointer;
+  nextPointer = Math.min(nextPointer + 4, patientList.length);
+
+  giveTargetedPart(previousPointer, nextPointer);
+
+  console.log(`next func: next-> ${nextPointer} prev->${previousPointer}`);
+};
+
+
+const giveTargetedPart = (start, end) => {
+  patientData.innerHTML = "";
+  console.log(` Targert start : ${start} end : ${end}`);
+
+  for (let index = start; index < end; index++) {
+    patientData.innerHTML += `<div class="row" draggable="true" data-id=${patientList[index].id}>
+                        <section class="patient-data">
+                            <p class="name">${patientList[index].name}</p>
+                            <p class="last-name">${patientList[index].lastName}</p>
+                            <p class="tel">${patientList[index].telephone}</p>
+                            <p class="email">${patientList[index].email}</p>
+                            <p class="motif">${patientList[index].motif}</p>
+                            <p class="date">${patientList[index].date}</p>
+                        </section>
+                    </div>`;
+
+    //item.innerText = patientList[index];
+    //item.innerText = patientItem;
+    //patientData.append(patientItem);
+    //console.log(patientList[index].id);
   }
 };
