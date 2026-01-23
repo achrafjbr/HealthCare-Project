@@ -273,9 +273,7 @@ const previousPart = () => {
     nextPointer = previousPointer;
     previousPointer -= 4;
     giveTargetedPart(previousPointer, nextPointer);
-    console.log(
-      `Previous func: next-> ${nextPointer} prev->${previousPointer}`,
-    );
+
   }
 };
 
@@ -287,29 +285,22 @@ const nextPart = () => {
 
   giveTargetedPart(previousPointer, nextPointer);
 
-  console.log(`next func: next-> ${nextPointer} prev->${previousPointer}`);
 };
 
 
 const giveTargetedPart = (start, end) => {
   patientData.innerHTML = "";
-  console.log(` Targert start : ${start} end : ${end}`);
-
   for (let index = start; index < end; index++) {
-    patientData.innerHTML += `<div class="row" draggable="true" data-id=${patientList[index].id}>
+    const {id, name, lastName, telephone, email, motif , date  } =  patientList[index];
+    patientData.innerHTML += `<div class="row" draggable="true" data-id=${id}>
                         <section class="patient-data">
-                            <p class="name">${patientList[index].name}</p>
-                            <p class="last-name">${patientList[index].lastName}</p>
-                            <p class="tel">${patientList[index].telephone}</p>
-                            <p class="email">${patientList[index].email}</p>
-                            <p class="motif">${patientList[index].motif}</p>
-                            <p class="date">${patientList[index].date}</p>
+                            <p class="name">${name}</p>
+                            <p class="last-name">${lastName}</p>
+                            <p class="tel">${telephone}</p>
+                            <p class="email">${email}</p>
+                            <p class="motif">${motif}</p>
+                            <p class="date">${date}</p>
                         </section>
                     </div>`;
-
-    //item.innerText = patientList[index];
-    //item.innerText = patientItem;
-    //patientData.append(patientItem);
-    //console.log(patientList[index].id);
   }
 };
