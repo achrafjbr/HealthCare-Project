@@ -127,14 +127,17 @@ const onDragStarting = (event) => {
   selectedRow.addEventListener("dragend", (e) => onDragEnding(selectedRow, e));
 };
 
+let filtringPatient = [];
 // I'll develop it later.
-const reRenderPatientData = () => {
+const reRenderPatientData = (inFlitring) => {
   checkHowManyItemExist();
   patientData.innerHTML = "";
-  patientList.forEach(
-    ({ id, name, telephone, lastName, email, motif, date }, indx) => {
-      if (indx < 4) {
-        patientData.innerHTML += `<div class="row" draggable="true" data-id=${id}>
+  patientList;
+  inFlitring
+    ? filtringPatient.forEach(
+        ({ id, name, telephone, lastName, email, motif, date }, indx) => {
+          if (indx < 4) {
+            patientData.innerHTML += `<div class="row" draggable="true" data-id=${id}>
                         <section class="patient-data">
                             <p class="name">${name}</p>
                             <p class="last-name">${lastName}</p>
@@ -144,9 +147,25 @@ const reRenderPatientData = () => {
                             <p class="date">${date}</p>
                         </section>
                     </div>`;
-      }
-    },
-  );
+          }
+        },
+      )
+    : patientList.forEach(
+        ({ id, name, telephone, lastName, email, motif, date }, indx) => {
+          if (indx < 4) {
+            patientData.innerHTML += `<div class="row" draggable="true" data-id=${id}>
+                        <section class="patient-data">
+                            <p class="name">${name}</p>
+                            <p class="last-name">${lastName}</p>
+                            <p class="tel">${telephone}</p>
+                            <p class="email">${email}</p>
+                            <p class="motif">${motif}</p>
+                            <p class="date">${date}</p>
+                        </section>
+                    </div>`;
+          }
+        },
+      );
 };
 
 /*
@@ -273,7 +292,6 @@ const previousPart = () => {
     nextPointer = previousPointer;
     previousPointer -= 4;
     giveTargetedPart(previousPointer, nextPointer);
-
   }
 };
 
@@ -284,14 +302,13 @@ const nextPart = () => {
   nextPointer = Math.min(nextPointer + 4, patientList.length);
 
   giveTargetedPart(previousPointer, nextPointer);
-
 };
-
 
 const giveTargetedPart = (start, end) => {
   patientData.innerHTML = "";
   for (let index = start; index < end; index++) {
-    const {id, name, lastName, telephone, email, motif , date  } =  patientList[index];
+    const { id, name, lastName, telephone, email, motif, date } =
+      patientList[index];
     patientData.innerHTML += `<div class="row" draggable="true" data-id=${id}>
                         <section class="patient-data">
                             <p class="name">${name}</p>
@@ -304,3 +321,76 @@ const giveTargetedPart = (start, end) => {
                     </div>`;
   }
 };
+
+// dark & light mode feature:
+
+const darkAndLightMode = document.querySelector(".darkMode");
+
+darkAndLightMode.addEventListener("click", (event) => {
+  toggleMode(darkAndLightMode.classList.contains("isLight"));
+});
+
+const toggleMode = (isLight) => {
+  const toggleImge = document.querySelector(".toggle-icon-mode");
+  console.log(toggleImge);
+
+  if (isLight) {
+    toggleImge.style.transform = "translateX(0%)";
+    setTimeout(() => {
+      // Remove the lightMode and add dark mode for the switcher
+      darkAndLightMode.classList.remove("isLight");
+      darkAndLightMode.classList.add("isDark");
+      toggleImge.src = "/images/dark.png";
+      // Remove the lightMode and add dark mode for the body
+      document.body.classList.remove("isLight");
+      document.body.classList.add("isDark");
+    }, 1000);
+  } else {
+    toggleImge.style.transform = "translateX(100%)";
+    setTimeout(() => {
+      darkAndLightMode.classList.remove("isDark");
+      darkAndLightMode.classList.add("isLight");
+
+      toggleImge.src = "/images/light.png";
+      document.body.classList.remove("isDark");
+      document.body.classList.add("isLight");
+    }, 1000);
+  }
+};
+let filterList = ["name"];
+/// Search and Filter feature.
+const filterBars = document.querySelector(".filter-bars");
+filterBars.addEventListener("click", (event) => {
+  const selected = event.target;
+  if (selected.classList.contains("name")) return;
+  const isHoldSelectedClass = selected.classList.contains("selected");
+  if (isHoldSelectedClass) {
+    selected.classList.remove("selected");
+    const searchingField = selected.classList[1];
+    filterList = filterList.filter((element) => element != searchingField);
+  } else {
+    selected.classList.add("selected");
+    const searchingField = selected.classList[1];
+    filterList.push(searchingField);
+  }
+  console.log(filterList);
+});
+
+// Searching feature:
+const search = document.getElementById("search");
+
+search.addEventListener("input", (event) => {
+  const searchValue = event.target.value.toLowerCase();
+  filtringPatient = [...patientList];
+  if (!searchValue) {
+    reRenderPatientData();
+    return;
+  }
+  filtringPatient = patientList.filter((patient) =>
+    filterList.some((field) =>
+      patient[field]?.toLowerCase().includes(searchValue),
+    ),
+  );
+
+  reRenderPatientData(true); // re-render UI
+});
