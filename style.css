@@ -17,6 +17,18 @@ body.isLight {
 body.isDark {
   background: var(--dark-mode);
   color: var(--light-mode);
+  #envoi-btn {
+    background: black;
+  }
+  .fields > input {
+    border: 1px solid var(--light-mode);
+    
+  }
+  .filter-bar{
+    box-shadow:
+    -5px 5px 17px 0px var(--dark-mode),
+    0px 1px 5px var(--dark-mode);
+  }
 }
 :root {
   --primary-color: #5c88ee;
@@ -299,7 +311,7 @@ header {
 }
 
 /* Search and Filter feature*/
-.search-filter{
+.search-filter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -315,12 +327,12 @@ header {
   padding: 5px;
 }
 
-.filter-bars{
+.filter-bars {
   display: flex;
   gap: 10px;
   height: 30px;
 }
-.filter-bar{
+.filter-bar {
   gap: 10px;
   display: flex;
   justify-content: center;
@@ -333,12 +345,12 @@ header {
   border-radius: 0.4rem;
   border: 1px white solid;
   cursor: pointer;
- box-shadow:
+  box-shadow:
     -5px 5px 17px 0px var(--primary-color),
     0px 1px 5px var(--primary-color);
 }
-.filter-bar.selected{
- background: var(--border-text-field-color);
+.filter-bar.selected {
+  background: var(--background-color);
 }
 /* Media query Mobile */
 
